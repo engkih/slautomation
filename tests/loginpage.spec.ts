@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Login positive test', () => {
-    test('Normal login test', async ({ page }) => {
+    test('Positive Normal login test', async ({ page }) => {
         await page.locator('[data-test="username"]').click();
         await page.locator('[data-test="username"]').fill('standard_user');
         await page.locator('[data-test="password"]').click();
@@ -13,4 +13,11 @@ test.describe('Login positive test', () => {
         await page.locator('[data-test="login-button"]').click();
         await expect(page.locator('[data-test="title"]')).toHaveText('Products')
     });
+})
+
+test.describe('Login negative test', () => {
+    test('Negative empty user and password', async ({ page }) => {
+        await page.locator('[data-test="login-button"]').click();
+        await expect(page.locator('[data-test="error"]')).toHaveText('Epic sadface: Username is required')
+    })
 })
